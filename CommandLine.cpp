@@ -12,7 +12,7 @@ CommandLine::~CommandLine()
 
 void CommandLine::Help()
 {
-	_tprintf(_T("RemoveDiacritics 0.1.0\n"));
+	_tprintf(_T("RemoveDiacritics 0.2.0\n"));
 	_tprintf(_T("	RemoveDiacritics for command line.\n\n"));
 	_tprintf(_T("Usage:\n"));
 	_tprintf(_T("	RemoveDiacritics [OPTIONS]\n\n"));
