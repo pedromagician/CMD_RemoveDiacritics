@@ -3,3 +3,5 @@ Debug/
 Release/
 RemoveDiacritics.vcxproj.user
 project.aps
+inputFile
+outputFile

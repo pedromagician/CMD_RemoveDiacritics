@@ -1,4 +1,6 @@
-﻿#include "stdafx.h"
+﻿Debug theDebug; 
+
+#include "stdafx.h"
 #include "File.h"
 #include "Conversion.h"
 #include "Locale.h"
@@ -6,10 +8,6 @@
 
 int _tmain(int _argc, _TCHAR* _argv[])
 {
-#if defined(_DEBUG)
-	Debug::MemoryLeakDetection();
-#endif
-
 	if (Locale::EnableLocale() == false)
 		_tprintf(_T("Error - Locale initialization failed\n"));
 

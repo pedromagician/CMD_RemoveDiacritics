@@ -1,6 +1,8 @@
 #include "File.h"
 #include "Conversion.h"
 
+#define UNSAFETY_NEW ::new
+
 bool File::CreateDirectoryRecursively(wstring _directory)
 {
 	_directory = Conversion::RightTrimString(_directory, _T("/"));
@@ -242,7 +244,7 @@ bool File::WriteUTF8File(const wstring & _filename, const wstring & _buffer)
 {
 	// create directory
 	size_t size = _filename.length();
-	wchar_t *dir = new wchar_t[size];
+	wchar_t *dir = DBG_NEW wchar_t[size];
 	_wsplitpath_s(_filename.c_str(), NULL, 0, dir, size, NULL, 0, NULL, 0);
 	wstring folder(dir);
 	CreateDirectoryRecursively(folder);
@@ -313,7 +315,7 @@ bool File::WriteANSIFile(const wstring& _filename, const wstring& _buffer)
 {
 	//create directory
 	size_t size = _filename.length();
-	wchar_t* dir = new wchar_t[size];
+	wchar_t* dir = DBG_NEW wchar_t[size];
 	_wsplitpath_s(_filename.c_str(), NULL, 0, dir, size, NULL, 0, NULL, 0);
 	wstring folder(dir);
 	CreateDirectoryRecursively(folder);
@@ -342,7 +344,7 @@ bool File::ReadFile(const wstring & _filename, BYTE ** _buffer, unsigned int & _
 		in.seekg(0, ios::end);
 		_length = (unsigned int)in.tellg();
 		if (_length >0) {
-			*_buffer = new BYTE[_length];
+			*_buffer = DBG_NEW BYTE[_length];
 			if (*_buffer) {
 				in.seekg(0, ios::beg);
 				in.read((char *)*_buffer, _length);
@@ -360,7 +362,7 @@ bool File::WriteFile(const wstring & _filename, const BYTE * _buffer, unsigned i
 {
 	// create directory
 	size_t size = _filename.length();
-	wchar_t *dir = new wchar_t[size];
+	wchar_t *dir = DBG_NEW wchar_t[size];
 	_wsplitpath_s(_filename.c_str(), NULL, 0, dir, size, NULL, 0, NULL, 0);
 	wstring folder(dir);
 	CreateDirectoryRecursively(folder);
