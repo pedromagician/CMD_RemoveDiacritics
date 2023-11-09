@@ -245,8 +245,9 @@ bool File::WriteUTF8File(const wstring & _filename, const wstring & _buffer)
 	// create directory
 	size_t size = _filename.length();
 	wchar_t *dir = DBG_NEW wchar_t[size];
-	_wsplitpath_s(_filename.c_str(), NULL, 0, dir, size, NULL, 0, NULL, 0);
-	wstring folder(dir);
+	wchar_t* drive = DBG_NEW wchar_t[size];
+	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
+	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
 	delete []dir;
 
@@ -316,8 +317,9 @@ bool File::WriteANSIFile(const wstring& _filename, const wstring& _buffer)
 	//create directory
 	size_t size = _filename.length();
 	wchar_t* dir = DBG_NEW wchar_t[size];
-	_wsplitpath_s(_filename.c_str(), NULL, 0, dir, size, NULL, 0, NULL, 0);
-	wstring folder(dir);
+	wchar_t* drive = DBG_NEW wchar_t[size];
+	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
+	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
 	delete[]dir;
 
@@ -363,8 +365,9 @@ bool File::WriteFile(const wstring & _filename, const BYTE * _buffer, unsigned i
 	// create directory
 	size_t size = _filename.length();
 	wchar_t *dir = DBG_NEW wchar_t[size];
-	_wsplitpath_s(_filename.c_str(), NULL, 0, dir, size, NULL, 0, NULL, 0);
-	wstring folder(dir);
+	wchar_t* drive = DBG_NEW wchar_t[size];
+	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
+	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
 	delete []dir;
 
