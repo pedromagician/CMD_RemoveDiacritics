@@ -249,7 +249,8 @@ bool File::WriteUTF8File(const wstring & _filename, const wstring & _buffer)
 	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
 	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
-	delete []dir;
+	delete[]drive;
+	delete[]dir;
 
 	// open stream
 	wofstream stream;
@@ -321,6 +322,7 @@ bool File::WriteANSIFile(const wstring& _filename, const wstring& _buffer)
 	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
 	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
+	delete[]drive;
 	delete[]dir;
 
 	//write file
@@ -369,7 +371,8 @@ bool File::WriteFile(const wstring & _filename, const BYTE * _buffer, unsigned i
 	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
 	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
-	delete []dir;
+	delete[]drive;
+	delete[]dir;
 
 	// write file
 	ofstream out(_filename, ios::out | ios::binary | ios::trunc);
