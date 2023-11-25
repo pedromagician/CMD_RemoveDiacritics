@@ -1,8 +1,6 @@
 #include "File.h"
 #include "Conversion.h"
 
-#define UNSAFETY_NEW ::new
-
 bool File::CreateDirectoryRecursively(wstring _directory)
 {
 	_directory = Conversion::RightTrimString(_directory, _T("/"));
@@ -152,7 +150,7 @@ bool File::ReadUTF16File(const wstring & _filename, wstringstream & _buffer, str
 	wifstream stream;
 	stream.open(_filename);
 	if (stream.is_open() && stream.good()) {
-		stream.imbue(locale(locale::empty(), UNSAFETY_NEW codecvt_utf16<wchar_t, 0x10ffff, consume_header>));
+		stream.imbue(locale(locale::empty(), ::new codecvt_utf16<wchar_t, 0x10ffff, consume_header>));
 
 		_buffer << stream.rdbuf();
 
@@ -173,7 +171,7 @@ bool File::ReadUTF16File(const wstring & _filename, wstring & _buffer, streampos
 	wifstream stream;
 	stream.open(_filename);
 	if (stream.is_open() && stream.good()) {
-		stream.imbue(locale(locale::empty(), UNSAFETY_NEW codecvt_utf16<wchar_t, 0x10ffff, consume_header>));
+		stream.imbue(locale(locale::empty(), ::new codecvt_utf16<wchar_t, 0x10ffff, consume_header>));
 
 		wstringstream file;
 		file << stream.rdbuf();
@@ -200,7 +198,7 @@ bool File::ReadUTF8File(const wstring & _filename, wstringstream & _buffer, stre
 	wifstream stream;
 	stream.open(_filename);
 	if (stream.is_open() && stream.good()) {
-		stream.imbue(locale(locale::empty(), UNSAFETY_NEW codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
+		stream.imbue(locale(locale::empty(), ::new codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
 
 		_buffer << stream.rdbuf();
 
@@ -221,7 +219,7 @@ bool File::ReadUTF8File(const wstring & _filename, wstring & _buffer, streampos 
 	wifstream stream;
 	stream.open(_filename);
 	if (stream.is_open() && stream.good()) {
-		stream.imbue(locale(locale::empty(), UNSAFETY_NEW codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
+		stream.imbue(locale(locale::empty(), ::new codecvt_utf8<wchar_t, 0x10ffff, consume_header>));
 
 		wstringstream file;
 		file << stream.rdbuf();
@@ -244,8 +242,8 @@ bool File::WriteUTF8File(const wstring & _filename, const wstring & _buffer)
 {
 	// create directory
 	size_t size = _filename.length();
-	wchar_t *dir = DBG_NEW wchar_t[size];
-	wchar_t* drive = DBG_NEW wchar_t[size];
+	wchar_t *dir = new wchar_t[size];
+	wchar_t* drive = new wchar_t[size];
 	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
 	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
@@ -254,7 +252,7 @@ bool File::WriteUTF8File(const wstring & _filename, const wstring & _buffer)
 
 	// open stream
 	wofstream stream;
-	stream.imbue(locale(locale::empty(), UNSAFETY_NEW codecvt_utf8<wchar_t, 0x10ffff, generate_header>));
+	stream.imbue(locale(locale::empty(), ::new codecvt_utf8<wchar_t, 0x10ffff, generate_header>));
 	stream.open(_filename);
 
 	// write file
@@ -317,8 +315,8 @@ bool File::WriteANSIFile(const wstring& _filename, const wstring& _buffer)
 {
 	//create directory
 	size_t size = _filename.length();
-	wchar_t* dir = DBG_NEW wchar_t[size];
-	wchar_t* drive = DBG_NEW wchar_t[size];
+	wchar_t* dir = new wchar_t[size];
+	wchar_t* drive = new wchar_t[size];
 	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
 	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);
@@ -348,7 +346,7 @@ bool File::ReadFile(const wstring & _filename, BYTE ** _buffer, unsigned int & _
 		in.seekg(0, ios::end);
 		_length = (unsigned int)in.tellg();
 		if (_length >0) {
-			*_buffer = DBG_NEW BYTE[_length];
+			*_buffer = new BYTE[_length];
 			if (*_buffer) {
 				in.seekg(0, ios::beg);
 				in.read((char *)*_buffer, _length);
@@ -366,8 +364,8 @@ bool File::WriteFile(const wstring & _filename, const BYTE * _buffer, unsigned i
 {
 	// create directory
 	size_t size = _filename.length();
-	wchar_t *dir = DBG_NEW wchar_t[size];
-	wchar_t* drive = DBG_NEW wchar_t[size];
+	wchar_t *dir = new wchar_t[size];
+	wchar_t* drive = new wchar_t[size];
 	_wsplitpath_s(_filename.c_str(), drive, size, dir, size, NULL, 0, NULL, 0);
 	wstring folder(drive + wstring(dir));
 	CreateDirectoryRecursively(folder);

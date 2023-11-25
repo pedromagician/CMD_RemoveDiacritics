@@ -1,6 +1,7 @@
-﻿Debug theDebug; 
+﻿#include "stdafx.h"
 
-#include "stdafx.h"
+Debug theDebug;
+
 #include "File.h"
 #include "Conversion.h"
 #include "Locale.h"
